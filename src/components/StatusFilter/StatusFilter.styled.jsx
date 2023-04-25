@@ -2,13 +2,10 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
-  /* flex-direction: row; */
   gap: 4px;
-  /* width: 500px; */
 `;
 
 export const Button = styled.button`
-  /* width: 200px; */
   padding: 12px 20px;
   border: 0;
   border-radius: 7px;

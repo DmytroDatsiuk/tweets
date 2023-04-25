@@ -59,14 +59,12 @@ export const UserCard = styled.div`
     #4b2a99 78.99%
   );
   background-size: cover;
-  /* background-image: url(requre('images/picture21.png')); */
 `;
 
 export const Element = styled.div`
   width: 380px;
   height: 8px;
   margin-top: 18px;
-  /* margin-bottom: auto; */
   background-color: #ebd8ff;
   box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.06),
     inset 0px -1.71846px 3.43693px #ae7be3, inset 0px 3.43693px 2.5777px #fbf8ff;
@@ -101,7 +99,6 @@ export const FollowingBtn = styled.button`
 `;
 
 export const BgImg = styled.img`
-  /* margin-top: 28px; */
   margin-left: auto;
   margin-right: auto;
   padding-top: 28px;
