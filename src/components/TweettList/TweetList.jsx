@@ -14,8 +14,7 @@ import {
 } from './TweetList.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchTweets } from 'redux/thunks/operations';
-import { downFollow, upFollow } from 'services/API';
+import { downFollow, upFollow, fetchTweets } from 'services/API';
 import { LoadMore } from 'components/LoadMore/LoadMore';
 import { selectVisibleTweets } from 'redux/selector/selectors';
 

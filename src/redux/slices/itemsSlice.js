@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTweets, addTweet, deleteTweet } from 'redux/thunks/operations.js';
-
-// import { toggleFollow } from 'services/API';
-import { downFollow, toggleFollow, upFollow } from 'services/API';
+import { downFollow, toggleFollow, upFollow, fetchTweets } from 'services/API';
 
 const itemsSlice = createSlice({
   name: 'items',
@@ -20,27 +17,6 @@ const itemsSlice = createSlice({
         state.tweets = action.payload;
       })
       .addCase(fetchTweets.rejected, state => {
-        state.isLoading = false;
-      })
-      .addCase(addTweet.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(addTweet.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.tweets.unshift(action.payload);
-      })
-      .addCase(addTweet.rejected, state => {
-        state.isLoading = false;
-      })
-      .addCase(deleteTweet.pending, state => {
-        state.isLoading = true;
-      })
-      .addCase(deleteTweet.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.tweets = state.tweets.filter(el => el.id !== action.payload);
-      })
-
-      .addCase(deleteTweet.rejected, state => {
         state.isLoading = false;
       })
       .addCase(upFollow.pending, state => {
