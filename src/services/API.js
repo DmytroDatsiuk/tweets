@@ -1,12 +1,66 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const contactsAPI = axios.create({
-  baseURL: 'https://6424ec4b7ac292e3cff3ca97.mockapi.io/contacts/',
+const tweetsAPI = axios.create({
+  baseURL: 'https://6443546f466f7c2b4b51be7b.mockapi.io/tweets',
 });
 
-export const getContacts = async () => (await contactsAPI.get()).data;
+export const getTweetsAPI = async () => (await tweetsAPI.get()).data;
 
-export const deleteContact = async id => (await contactsAPI.delete(id)).data;
+export const deleteTweetAPI = async id => (await tweetsAPI.delete(id)).data;
 
-export const addContact = async contact =>
-  (await contactsAPI.post('', contact)).data;
+export const toggleFollow = createAsyncThunk(
+  'tweets/toggleFollow',
+  async (tweets, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `https://6443546f466f7c2b4b51be7b.mockapi.io/tweets/${tweets.id}`,
+        {
+          follow: !tweets.follow,
+        }
+      );
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const upFollow = createAsyncThunk(
+  'tweets/upFollow',
+  async (tweets, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `https://6443546f466f7c2b4b51be7b.mockapi.io/tweets/${tweets.id}`,
+        {
+          follow: !tweets.follow,
+          followers: tweets.followers + 1,
+        }
+      );
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const downFollow = createAsyncThunk(
+  'tweets/downFollow',
+  async (tweets, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `https://6443546f466f7c2b4b51be7b.mockapi.io/tweets/${tweets.id}`,
+        {
+          follow: !tweets.follow,
+          followers: tweets.followers - 1,
+        }
+      );
+      return response.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const addTweetAPI = async tweet =>
+  (await tweetsAPI.post('', tweet)).data;

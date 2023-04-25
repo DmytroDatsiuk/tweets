@@ -1,7 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { itemsReducer } from './slices/itemsSlice';
-import { filterReducer } from './slices/filterSlice';
-import { authReducer } from './slices/authSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -13,18 +11,17 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { filtersReducer } from './slices/filterSlice';
 
 const persistConfig = {
-  key: 'auth',
+  key: 'items',
   storage,
-  whitelist: ['token'],
 };
 
 export const store = configureStore({
   reducer: {
-    items: itemsReducer,
-    filter: filterReducer,
-    auth: persistReducer(persistConfig, authReducer),
+    items: persistReducer(persistConfig, itemsReducer),
+    filters: filtersReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

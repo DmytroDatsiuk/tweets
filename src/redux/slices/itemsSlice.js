@@ -1,57 +1,87 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  fetchContacts,
-  addContact,
-  deleteContact,
-  logout,
-} from 'redux/thunks/operations.js';
+import { fetchTweets, addTweet, deleteTweet } from 'redux/thunks/operations.js';
+
+// import { toggleFollow } from 'services/API';
+import { downFollow, toggleFollow, upFollow } from 'services/API';
 
 const itemsSlice = createSlice({
   name: 'items',
   initialState: {
-    contacts: [],
+    tweets: [],
     isLoading: false,
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.pending, state => {
+      .addCase(fetchTweets.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchContacts.fulfilled, (state, action) => {
+      .addCase(fetchTweets.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.contacts = action.payload;
+        state.tweets = action.payload;
       })
-      .addCase(fetchContacts.rejected, state => {
+      .addCase(fetchTweets.rejected, state => {
         state.isLoading = false;
       })
-      .addCase(addContact.pending, state => {
+      .addCase(addTweet.pending, state => {
         state.isLoading = true;
       })
-      .addCase(addContact.fulfilled, (state, action) => {
+      .addCase(addTweet.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.contacts.unshift(action.payload);
+        state.tweets.unshift(action.payload);
       })
-      .addCase(addContact.rejected, state => {
+      .addCase(addTweet.rejected, state => {
         state.isLoading = false;
       })
-      .addCase(deleteContact.pending, state => {
+      .addCase(deleteTweet.pending, state => {
         state.isLoading = true;
       })
-      .addCase(deleteContact.fulfilled, (state, action) => {
+      .addCase(deleteTweet.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.contacts = state.contacts.filter(el => el.id !== action.payload);
+        state.tweets = state.tweets.filter(el => el.id !== action.payload);
       })
-      .addCase(deleteContact.rejected, state => {
+
+      .addCase(deleteTweet.rejected, state => {
         state.isLoading = false;
       })
-      .addCase(logout.pending, state => {
+      .addCase(upFollow.pending, state => {
         state.isLoading = true;
       })
-      .addCase(logout.fulfilled, state => {
-        state.contacts = [];
+      .addCase(upFollow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.tweets.findIndex(
+          tweet => tweet.id === action.payload.id
+        );
+        state.tweets.splice(index, 1, action.payload);
+      })
+      .addCase(upFollow.rejected, state => {
         state.isLoading = false;
       })
-      .addCase(logout.rejected, state => {
+
+      .addCase(downFollow.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(downFollow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.tweets.findIndex(
+          tweet => tweet.id === action.payload.id
+        );
+        state.tweets.splice(index, 1, action.payload);
+      })
+      .addCase(downFollow.rejected, state => {
+        state.isLoading = false;
+      })
+
+      .addCase(toggleFollow.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(toggleFollow.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const index = state.tweets.findIndex(
+          tweet => tweet.id === action.payload.id
+        );
+        state.tweets.splice(index, 1, action.payload);
+      })
+      .addCase(toggleFollow.rejected, state => {
         state.isLoading = false;
       });
   },
