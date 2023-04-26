@@ -14,7 +14,6 @@ const itemsSlice = createSlice({
       })
       .addCase(fetchTweets.fulfilled, (state, action) => {
         state.isLoading = false;
-        // state.tweets = action.payload;
         action.payload.map(card => state.tweets.push(card));
       })
       .addCase(fetchTweets.rejected, state => {

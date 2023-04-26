@@ -24,22 +24,8 @@ export const TweetList = () => {
   const dispatch = useDispatch();
   const tweets = useSelector(selectVisibleTweets);
 
-  // let count = 3 * page;
-  // const visuallyTweets = [];
-  // for (let i = 0; i <= tweets.length - 1; i++) {
-  //   if (i < count) {
-  //     visuallyTweets.push(tweets[i]);
-  //   }
-  // }
-  const a = [];
-  const b = ['a', 'b'];
-
-  b.map(s => a.push(s));
-  console.log(a);
-
   useEffect(() => {
     dispatch(fetchTweets(page));
-    // console.log(dispatch(fetchTweets()));
   }, [dispatch, page]);
 
   const loader = () => {
