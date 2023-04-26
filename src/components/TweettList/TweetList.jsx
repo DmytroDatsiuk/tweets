@@ -24,17 +24,23 @@ export const TweetList = () => {
   const dispatch = useDispatch();
   const tweets = useSelector(selectVisibleTweets);
 
-  let count = 3 * page;
-  const visuallyTweets = [];
-  for (let i = 0; i <= tweets.length - 1; i++) {
-    if (i < count) {
-      visuallyTweets.push(tweets[i]);
-    }
-  }
+  // let count = 3 * page;
+  // const visuallyTweets = [];
+  // for (let i = 0; i <= tweets.length - 1; i++) {
+  //   if (i < count) {
+  //     visuallyTweets.push(tweets[i]);
+  //   }
+  // }
+  const a = [];
+  const b = ['a', 'b'];
+
+  b.map(s => a.push(s));
+  console.log(a);
 
   useEffect(() => {
-    dispatch(fetchTweets());
-  }, [dispatch]);
+    dispatch(fetchTweets(page));
+    // console.log(dispatch(fetchTweets()));
+  }, [dispatch, page]);
 
   const loader = () => {
     setPage(page + 1);
@@ -46,7 +52,7 @@ export const TweetList = () => {
         <p>There is no tweets</p>
       ) : (
         <List>
-          {visuallyTweets?.map(tweet => {
+          {tweets?.map(tweet => {
             const { id, tweets, followers, avatar, follow } = tweet;
 
             const followersCount = followers
@@ -66,7 +72,6 @@ export const TweetList = () => {
 
                   <AvatarImg src={require('images/Boy.png')} alt="avatar" />
                   <Avatar src={`${avatar}`} alt="avatasr" />
-
                   <Element></Element>
                   <DescBox>
                     <Tweets>{tweets} tweets</Tweets>
@@ -95,9 +100,7 @@ export const TweetList = () => {
         </List>
       )}
 
-      {visuallyTweets.length !== 0 && visuallyTweets.length < tweets.length && (
-        <LoadMore loader={loader} />
-      )}
+      {tweets.length !== 0 && <LoadMore loader={loader} />}
     </>
   );
 };

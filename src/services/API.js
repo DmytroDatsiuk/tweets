@@ -1,15 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const tweetsAPI = axios.create({
-  baseURL: 'https://6443546f466f7c2b4b51be7b.mockapi.io/users',
-});
+// const tweetsAPI = axios.create({
+//   baseURL: url,
+// });
 
 export const fetchTweets = createAsyncThunk(
   'tweets/fetchAll',
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
+    const url = new URL('https://6443546f466f7c2b4b51be7b.mockapi.io/users');
+    url.searchParams.append('completed', false);
+    url.searchParams.append('page', page);
+    url.searchParams.append('limit', 3);
     try {
-      const data = (await tweetsAPI.get()).data;
+      const data = (await axios.get(url)).data;
 
       return data;
     } catch (err) {
@@ -70,6 +74,3 @@ export const downFollow = createAsyncThunk(
     }
   }
 );
-
-export const addTweetAPI = async tweet =>
-  (await tweetsAPI.post('', tweet)).data;
