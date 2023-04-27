@@ -92,7 +92,7 @@ export const TweetList = () => {
         </List>
       )}
 
-      {tweets.length !== 0 && <LoadMore loader={loader} />}
+      {tweets.length !== 0 && page <= 21 && <LoadMore loader={loader} />}
     </>
   );
 };
