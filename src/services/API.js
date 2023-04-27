@@ -5,7 +5,24 @@ import axios from 'axios';
 //   baseURL: url,
 // });
 
-export const fetchTweets = createAsyncThunk(
+export const fetchFirstPageTweets = createAsyncThunk(
+  'tweets/fetchFirstPage',
+  async (_, thunkAPI) => {
+    const url = new URL('https://6443546f466f7c2b4b51be7b.mockapi.io/users');
+    url.searchParams.append('completed', false);
+    url.searchParams.append('page', 1);
+    url.searchParams.append('limit', 3);
+    try {
+      const data = (await axios.get(url)).data;
+
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchNextPageTweets = createAsyncThunk(
   'tweets/fetchAll',
   async (page, thunkAPI) => {
     const url = new URL('https://6443546f466f7c2b4b51be7b.mockapi.io/users');

@@ -14,22 +14,28 @@ import {
 } from './TweetList.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { downFollow, upFollow, fetchTweets } from 'services/API';
+import {
+  downFollow,
+  upFollow,
+  fetchFirstPageTweets,
+  fetchNextPageTweets,
+} from 'services/API';
 import { LoadMore } from 'components/LoadMore/LoadMore';
 import { selectVisibleTweets } from 'redux/selector/selectors';
 
 export const TweetList = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
 
   const dispatch = useDispatch();
   const tweets = useSelector(selectVisibleTweets);
 
   useEffect(() => {
-    dispatch(fetchTweets(page));
-  }, [dispatch, page]);
+    dispatch(fetchFirstPageTweets());
+  }, [dispatch]);
 
   const loader = () => {
     setPage(page + 1);
+    dispatch(fetchNextPageTweets(page));
   };
 
   return (

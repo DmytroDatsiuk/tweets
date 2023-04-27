@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { downFollow, toggleFollow, upFollow, fetchTweets } from 'services/API';
+import {
+  downFollow,
+  toggleFollow,
+  upFollow,
+  fetchFirstPageTweets,
+  fetchNextPageTweets,
+} from 'services/API';
 
 const itemsSlice = createSlice({
   name: 'items',
@@ -9,14 +15,24 @@ const itemsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchTweets.pending, state => {
+      .addCase(fetchFirstPageTweets.pending, state => {
         state.isLoading = true;
       })
-      .addCase(fetchTweets.fulfilled, (state, action) => {
+      .addCase(fetchFirstPageTweets.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.tweets = action.payload;
+      })
+      .addCase(fetchNextPageTweets.rejected, state => {
+        state.isLoading = false;
+      })
+      .addCase(fetchNextPageTweets.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchNextPageTweets.fulfilled, (state, action) => {
         state.isLoading = false;
         action.payload.map(card => state.tweets.push(card));
       })
-      .addCase(fetchTweets.rejected, state => {
+      .addCase(fetchFirstPageTweets.rejected, state => {
         state.isLoading = false;
       })
       .addCase(upFollow.pending, state => {
