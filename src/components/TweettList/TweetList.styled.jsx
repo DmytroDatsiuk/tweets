@@ -82,6 +82,14 @@ export const FollowBtn = styled.button`
   border-radius: 10.3108px;
   border: 0;
   cursor: pointer;
+
+  &:hover {
+    background-color: lightblue;
+  }
+
+  &:active {
+    background-color: #62afc9;
+  }
 `;
 
 export const FollowingBtn = styled.button`
@@ -96,6 +104,14 @@ export const FollowingBtn = styled.button`
   border-radius: 10.3108px;
   border: 0;
   cursor: pointer;
+
+  &:hover {
+    background-color: lightblue;
+  }
+
+  &:active {
+    background-color: #62afc9;
+  }
 `;
 
 export const BgImg = styled.img`

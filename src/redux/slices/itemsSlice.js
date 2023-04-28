@@ -5,7 +5,7 @@ import {
   upFollow,
   fetchFirstPageTweets,
   fetchNextPageTweets,
-} from 'services/API';
+} from 'redux/thunk/thunkAPI';
 
 const itemsSlice = createSlice({
   name: 'items',

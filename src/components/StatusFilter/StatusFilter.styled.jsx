@@ -1,23 +1,56 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const Wrapper = styled.div`
-  display: flex;
-  gap: 4px;
+const translateDown = keyframes`
+  from {
+    transform: translateY(-100%);
+  z-index: 1000;
+  }
+
+  to {
+    transform: translateY(0);
+  z-index: 1000;
+  }
 `;
 
-export const Button = styled.button`
-  padding: 12px 20px;
-  border: 0;
-  border-radius: 7px;
-  color: white;
+const translateUp = keyframes`
+  from {
+
+transform: translateY(0);
+  z-index: 1000;
+  }
+
+  to {
+     transform: translateY(-100%);
+
+  }
+`;
+
+export const Wrapper = styled.div`
+  position: absolute;
+  width: 190px;
+  padding: 10px;
   background-color: #5cd3a8;
-  cursor: pointer;
+  transform: translateY(-100%);
+  animation: ${translateUp} 500ms cubic-bezier(0.4, 0, 0.2, 1);
+`;
 
-  &:hover {
-    background-color: lightblue;
-  }
+export const WrapperDown = styled(Wrapper)`
+  width: 190px;
+  padding: 10px;
+  background-color: #5cd3a8;
+  transform: translateY(0);
+  z-index: 1000;
+  animation: ${translateDown} 500ms cubic-bezier(0.4, 0, 0.2, 1);
+`;
 
-  &:active {
-    background-color: #62afc9;
-  }
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  list-style-type: none;
+`;
+
+export const Item = styled.li`
+  width: 140px;
 `;

@@ -19,7 +19,7 @@ import {
   upFollow,
   fetchFirstPageTweets,
   fetchNextPageTweets,
-} from 'services/API';
+} from 'redux/thunk/thunkAPI';
 import { LoadMore } from 'components/LoadMore/LoadMore';
 import { selectVisibleTweets } from 'redux/selector/selectors';
 
